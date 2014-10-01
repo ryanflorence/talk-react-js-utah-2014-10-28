@@ -1,0 +1,4 @@
+#!/bin/sh
+BROWSERIFY="node_modules/.bin/browserify --detect-globals false"
+$BROWSERIFY -t envify -r react > build/js/vendor.js
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+BROWSERIFY="node_modules/.bin/browserify --detect-globals false"
+$BROWSERIFY -t envify -t reactify -x react ./app/js/main.js > build/js/app.js
+
