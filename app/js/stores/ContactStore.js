@@ -20,7 +20,6 @@ var ContactStore = {
   load() {
     req.get(`${HOST}/contacts`, function(err, res) {
       setState({ contactsLoaded: true, contacts: res.contacts });
-      notifyChange();
     });
   },
 
@@ -33,11 +32,13 @@ var ContactStore = {
   save (contact) {
     var oldContact = this.findById(contact.id);
     var index = state.contacts.indexOf(oldContact);
+    var oldContacts = state.contacts.slice(0);
     var contacts = state.contacts.slice(0);
     contacts[index] = contact;
     setState({contacts});
-    notifyChange();
-    req.put(`${HOST}/contacts/${contact.id}`, {contact});
+    req.put(`${HOST}/contactss/${contact.id}`, {contact}, function(err) {
+      if (err) setState({contacts: oldContacts});
+    });
   },
 
   addChangeListener(fn) {
@@ -56,6 +57,7 @@ function notifyChange() {
 
 function setState(newState) {
   mergeInto(state, newState);
+  notifyChange();
 }
 
 module.exports = ContactStore;
