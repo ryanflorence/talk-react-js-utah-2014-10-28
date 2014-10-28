@@ -3,25 +3,24 @@ var React = require('react');
 var req = require('../lib/req');
 var HOST = 'http://addressbook-api.herokuapp.com';
 var ContactList = require('./ContactList');
-var Contact = require('./Contact');
+var ContactStore = require('../stores/ContactStore');
 
 var App = module.exports = React.createClass({
   getInitialState() {
-    return {
-      contacts: [],
-      contactsLoaded: false
-    };
+    return this.getStateFromStore()
+  },
+
+  getStateFromStore() {
+    return ContactStore.getState()
   },
 
   componentDidMount() {
-    req.get(`${HOST}/contacts`, this.onReceiveContacts);
+    ContactStore.load();
+    ContactStore.addChangeListener(this.handleStoreChange);
   },
 
-  onReceiveContacts(err, res) {
-    this.setState({
-      contactsLoaded: true,
-      contacts: res.contacts
-    });
+  handleStoreChange() {
+    this.setState(this.getStateFromStore());
   },
 
   handleContactEdit(editedContact) {
