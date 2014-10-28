@@ -5,7 +5,7 @@ var fullName = require('../lib/fullName');
 
 var ContactList = module.exports = React.createClass({
 
-  render: function() {
+  render() {
     var contacts = this.props.contacts.map(function(contact) {
       return (
         <li key={contact.id}>

@@ -14,7 +14,7 @@ var App = module.exports = React.createClass({
   },
 
   componentDidMount() {
-    req.get(HOST+'/contacts', this.onReceiveContacts);
+    req.get(`${HOST}/contacts`, this.onReceiveContacts);
   },
 
   onReceiveContacts(err, res) {

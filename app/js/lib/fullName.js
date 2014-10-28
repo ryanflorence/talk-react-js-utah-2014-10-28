@@ -1,6 +1,7 @@
+/** @jsx */
 module.exports = fullName;
 
 function fullName(contact) {
-  return contact.first + ' ' + contact.last;
+  return `${contact.first} ${contact.last}`;
 }
 
