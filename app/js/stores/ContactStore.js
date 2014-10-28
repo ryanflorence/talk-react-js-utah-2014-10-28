@@ -36,7 +36,7 @@ var ContactStore = {
     var contacts = state.contacts.slice(0);
     contacts[index] = contact;
     setState({contacts});
-    req.put(`${HOST}/contactss/${contact.id}`, {contact}, function(err) {
+    req.put(`${HOST}/contacts/${contact.id}`, {contact}, function(err) {
       if (err) setState({contacts: oldContacts});
     });
   },
