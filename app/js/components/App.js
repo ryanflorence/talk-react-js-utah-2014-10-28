@@ -6,7 +6,7 @@ var ContactList = require('./ContactList');
 var Contact = require('./Contact');
 
 var App = module.exports = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       contacts: [],
       contactsLoaded: false,
@@ -14,40 +14,35 @@ var App = module.exports = React.createClass({
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     req.get(HOST+'/contacts', this.onReceiveContacts);
   },
 
-  onReceiveContacts: function(err, res) {
+  onReceiveContacts(err, res) {
     this.setState({
       contactsLoaded: true,
       contacts: res.contacts
     });
   },
 
-  handleContactSelect: function(contact) {
-    this.setState({
-      currentContact: contact
-    });
+  handleContactSelect(contact) {
+    this.setState({ currentContact: contact });
   },
 
-  handleContactEdit: function(editedContact) {
+  handleContactEdit(editedContact) {
     var contacts = this.state.contacts;
-
     contacts.forEach(function(contact, index) {
       if (contact.id === editedContact.id)
         contacts[index] = editedContact;
     });
-
     this.setState({
       contacts: contacts,
       currentContact: editedContact
     });
-
-    req.put(HOST+'/contacts/'+editedContact.id, {contact: editedContact});
+    req.put(`${HOST}/contacts/${editedContact.id}`, {contact: editedContact});
   },
 
-  renderMaster: function() {
+  renderMaster() {
     return this.state.contactsLoaded ?
       <ContactList
         onSelect={this.handleContactSelect}
@@ -56,13 +51,13 @@ var App = module.exports = React.createClass({
       <div>Loading ...</div>;
   },
 
-  renderDetail: function() {
+  renderDetail() {
     return this.state.currentContact ?
       <Contact contact={this.state.currentContact} onEdit={this.handleContactEdit} /> :
       <h2 className="Heading Heading--alt">Welcome!</h2>;
   },
 
-  render: function() {
+  render() {
     return (
       <div className="App">
         <div className="Master">

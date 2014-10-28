@@ -16,13 +16,8 @@ var Contact = module.exports = React.createClass({
 
   saveEdits: function(event) {
     event.preventDefault();
-    var elements = this.refs.form.getDOMNode().elements;
-    var contact = [].filter.call(elements, function(element) {
-      return element.getAttribute('name');
-    }).reduce(function(contact, element) {
-      contact[element.getAttribute('name')] = element.value;
-      return contact;
-    }, {id: this.props.contact.id});
+    var contact = getFormValues(this.refs.form.getDOMNode());
+    contact.id = this.props.contact.id;
     this.props.onEdit(contact);
     this.setState({showEditing: false});
   },

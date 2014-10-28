@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-
 var ContactList = module.exports = React.createClass({
 
   select: function(contact) {
@@ -22,6 +21,7 @@ var ContactList = module.exports = React.createClass({
         </li>
       );
     }, this);
+
     return (
       <ul className="ContactList">
         {contacts}
