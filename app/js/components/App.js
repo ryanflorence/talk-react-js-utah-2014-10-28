@@ -39,13 +39,6 @@ var App = module.exports = React.createClass({
       <div>Loading ...</div>;
   },
 
-  renderDetail() {
-    return this.state.contactsLoaded && this.props.activeRouteHandler({
-      contacts: this.state.contacts,
-      onEdit: this.handleContactEdit
-    });
-  },
-
   render() {
     return (
       <div className="App">
@@ -56,7 +49,7 @@ var App = module.exports = React.createClass({
           </div>
         </div>
         <div className="Detail">
-          {this.renderDetail()}
+          {this.props.activeRouteHandler()}
         </div>
       </div>
     );

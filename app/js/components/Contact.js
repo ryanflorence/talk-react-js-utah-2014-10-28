@@ -2,24 +2,21 @@
 var React = require('react');
 var fullName = require('../lib/fullName');
 var getFormValues = require('../lib/getFormValues');
+var ContactStore = require('../stores/ContactStore');
 
 var Contact = module.exports = React.createClass({
 
   getInitialState() {
     return {
       showEditing: false,
-      contact: this.findContact(this.props)
+      contact: ContactStore.findById(this.props.params.id)
     };
   },
 
-  findContact(props) {
-    return props.contacts.filter(function(contact) {
-      return contact.id === props.params.id
-    })[0];
-  },
-
   componentWillReceiveProps(newProps) {
-    this.setState({contact: this.findContact(newProps)})
+    this.setState({
+      contact: ContactStore.findById(newProps.params.id)
+    });
   },
 
   startEditing(event) {

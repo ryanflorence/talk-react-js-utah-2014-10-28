@@ -24,6 +24,12 @@ var ContactStore = {
     });
   },
 
+  findById (id) {
+    return state.contacts.filter(function(contact) {
+      return contact.id === id
+    })[0];
+  },
+
   addChangeListener(fn) {
     events.addListener('change', fn);
   },
