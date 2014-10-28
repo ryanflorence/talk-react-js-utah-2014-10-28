@@ -9,7 +9,8 @@
   "author": "Ryan Florence",
   "license": "ISC",
   "dependencies": {
-    "react": "0.11.2"
+    "react": "0.11.2",
+    "react-router": "0.9.4"
   },
   "devDependencies": {
     "browserify": "5.12.1",
@@ -22,7 +23,12 @@
   },
   "browserify": {
     "transform": [
-      ["reactify", {"es6": true}]
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
     ]
   }
 }

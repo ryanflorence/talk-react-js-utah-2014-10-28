@@ -1,34 +1,47 @@
 /** @jsx React.DOM */
 var React = require('react');
 var fullName = require('../lib/fullName');
+var getFormValues = require('../lib/getFormValues');
 
 var Contact = module.exports = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return {
-      showEditing: false
+      showEditing: false,
+      contact: this.findContact(this.props)
     };
   },
 
-  startEditing: function() {
+  findContact(props) {
+    return props.contacts.filter(function(contact) {
+      return contact.id === props.params.id
+    })[0];
+  },
+
+  componentWillReceiveProps(newProps) {
+    this.setState({contact: this.findContact(newProps)})
+  },
+
+  startEditing(event) {
+    event.preventDefault();
     this.setState({ showEditing: true });
   },
 
-  saveEdits: function(event) {
+  saveEdits(event) {
     event.preventDefault();
     var contact = getFormValues(this.refs.form.getDOMNode());
-    contact.id = this.props.contact.id;
+    contact.id = this.state.contact.id;
     this.props.onEdit(contact);
     this.setState({showEditing: false});
   },
 
-  cancelEdits: function(event) {
+  cancelEdits(event) {
     event.preventDefault();
     this.setState({showEditing: false});
   },
 
-  renderInfo: function() {
-    var contact = this.props.contact;
+  renderInfo() {
+    var contact = this.state.contact;
     return (
       <div className="KVSet">
         <div className="KV">
@@ -53,8 +66,8 @@ var Contact = module.exports = React.createClass({
     );
   },
 
-  renderEditing: function() {
-    var contact = this.props.contact;
+  renderEditing() {
+    var contact = this.state.contact;
     return (
       <div className="KVSet">
         <div className="KV">
@@ -86,8 +99,10 @@ var Contact = module.exports = React.createClass({
     );
   },
 
-  render: function() {
-    var contact = this.props.contact;
+  render() {
+    var contact = this.state.contact;
+    if (!contact)
+      return null;
     return (
       <div className="Contact">
         <h1 className="Heading Heading--alt">{fullName(contact)}</h1>

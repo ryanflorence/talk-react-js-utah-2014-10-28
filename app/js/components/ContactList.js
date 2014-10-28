@@ -1,26 +1,22 @@
 /** @jsx React.DOM */
 var React = require('react');
+var {Link} = require('react-router');
+var fullName = require('../lib/fullName');
 
 var ContactList = module.exports = React.createClass({
-
-  select: function(contact) {
-    this.props.onSelect(contact);
-  },
 
   render: function() {
     var contacts = this.props.contacts.map(function(contact) {
       return (
         <li key={contact.id}>
-          <a
+          <Link
             className="ContactList__Contact"
-            href="#"
-            onClick={this.select.bind(this, contact)}
-          >
-            {contact.first} {contact.last}
-          </a>
+            to="contact"
+            params={contact}
+          >{fullName(contact)}</Link>
         </li>
       );
-    }, this);
+    });
 
     return (
       <ul className="ContactList">
