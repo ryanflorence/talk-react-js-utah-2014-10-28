@@ -30,6 +30,16 @@ var ContactStore = {
     })[0];
   },
 
+  save (contact) {
+    var oldContact = this.findById(contact.id);
+    var index = state.contacts.indexOf(oldContact);
+    var contacts = state.contacts.slice(0);
+    contacts[index] = contact;
+    setState({contacts});
+    notifyChange();
+    req.put(`${HOST}/contacts/${contact.id}`, {contact});
+  },
+
   addChangeListener(fn) {
     events.addListener('change', fn);
   },

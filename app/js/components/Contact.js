@@ -28,7 +28,7 @@ var Contact = module.exports = React.createClass({
     event.preventDefault();
     var contact = getFormValues(this.refs.form.getDOMNode());
     contact.id = this.state.contact.id;
-    this.props.onEdit(contact);
+    ContactStore.save(contact);
     this.setState({showEditing: false});
   },
 

@@ -23,16 +23,6 @@ var App = module.exports = React.createClass({
     this.setState(this.getStateFromStore());
   },
 
-  handleContactEdit(editedContact) {
-    var contacts = this.state.contacts;
-    contacts.forEach(function(contact, index) {
-      if (contact.id === editedContact.id)
-        contacts[index] = editedContact;
-    });
-    this.setState({ contacts: contacts });
-    req.put(`${HOST}/contacts/${editedContact.id}`, {contact: editedContact});
-  },
-
   renderMaster() {
     return this.state.contactsLoaded ?
       <ContactList contacts={this.state.contacts}/> :
