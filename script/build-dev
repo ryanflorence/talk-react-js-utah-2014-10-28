@@ -1,5 +1,0 @@
-#!/bin/sh
-./script/clean
-./script/build-vendor
-./script/build-app
-

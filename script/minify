@@ -1,7 +1,0 @@
-#!/bin/sh
-UGLIFY="./node_modules/.bin/uglifyjs"
-OPTIONS="-m --compress warnings=false"
-
-$UGLIFY ./build/js/vendor.js $OPTIONS -o ./build/js/vendor.js
-$UGLIFY ./build/js/app.js $OPTIONS -o ./build/js/app.js
-
